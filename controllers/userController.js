@@ -36,3 +36,18 @@ exports.login = async (req, res, next) => {
         next(e);
     }
 }
+
+// Obtener la lista de todos los usuarios que hay en la base de datos
+exports.list = async (req, res, next) => {
+    try {
+        const listaUsuarios = await models.Usuario.findAll({
+            attributes: ['id', 'nombre', 'email', 'rol', 'estado']
+        });
+        res.status(200).json(listaUsuarios);
+    } catch (error) {
+        res.status(500).send({
+            reason: 'Error getting the list of users!'
+        });
+        next(error);
+    }
+}
