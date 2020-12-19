@@ -128,4 +128,42 @@ exports.update = async (req, res, next) => {
         });
         next(error);        
     }
-};
+}
+
+// Activa el usuario, cambiando el estado a uno
+exports.activate = async (req, res, next) => {
+    try {
+        const ident = req.body.id;
+        const resultado = await models.Usuario.update({
+            estado: 1
+        },
+        {
+            where: { id: ident }
+        });
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(500).send({
+            reason: 'Error activating user'
+        });
+        next(error);
+    }
+}
+
+// Activa el usuario, cambiando el estado a uno
+exports.deactivate = async (req, res, next) => {
+    try {
+        const ident = req.body.id;
+        const resultado = await models.Usuario.update({
+            estado: 0
+        },
+        {
+            where: { id: ident }
+        });
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(500).send({
+            reason: 'Error deactivating user'
+        });
+        next(error);
+    }
+}

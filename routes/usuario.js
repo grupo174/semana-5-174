@@ -15,6 +15,8 @@ router.post('/login', UserController.login);
 router.get('/list', verificarUsuarioAdministrador, UserController.list);
 router.post('/add', verifyUsuario, UserController.add);
 router.put('/update', verifyUsuario, UserController.update);
+router.put('/activate', verificarUsuarioAdministrador, UserController.activate);
+router.put('/deactivate', verificarUsuarioAdministrador, UserController.deactivate);
 
 // Exportamos el enrutador
 module.exports = router;
