@@ -1,0 +1,22 @@
+{
+    "development": {
+        "dialect": "sqlite",
+        "storage": "./proyecto_semana4.db"
+    },
+    "remote": {
+        "username": "sql10382634",
+        "password": "tTf3v1CQB9",
+        "database": "sql10382634",
+        "host": "sql10.freemysqlhosting.net",
+        "port": 3306,
+        "dialect": "mysql"
+    },
+    "test": {
+        "dialect": "sqlite",
+        "storage": "./database.sqlite3"
+    },
+    "production": {
+        "dialect": "sqlite",
+        "storage": "./database.sqlite3"
+    }
+}
