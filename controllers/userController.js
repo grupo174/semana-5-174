@@ -51,3 +51,40 @@ exports.list = async (req, res, next) => {
         next(error);
     }
 }
+
+// Agregar un nuevo usuario. Por ahora cualquiera puede agregar usuarios
+exports.add = async (req, res, next) => {
+    try {
+        const nombre = req.body.nombre;
+        const email = req.body.email;
+        const rol = req.body.rol;
+        const password = req.body.password;
+        const estado = req.body.estado || 1;
+
+        const rolesPermitidos = ['Administrador', 'Vendedor', 'Almacenero']
+
+        if (!rolesPermitidos.includes(rol)) {
+            throw new `The rol ${rol} is not allowed in this application`;
+        }
+
+        // Encriptamos la palabra clave
+        const claveEncriptada = await bcrypt.hash(password, 8);
+
+        // Guardamos el nuevo usuario en la base de datos
+        const resultado = await models.Usuario.create({
+            nombre: nombre, 
+            email: email,
+            password: claveEncriptada,
+            rol: rol, 
+            estado: estado
+        });
+
+        // Enviamos la respuesta al cliente
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(500).send({
+            reason: 'Error adding a new user'
+        });
+        next(error);
+    }
+}
