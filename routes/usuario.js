@@ -14,6 +14,7 @@ const router = Router()
 router.post('/login', UserController.login);
 router.get('/list', verificarUsuarioAdministrador, UserController.list);
 router.post('/add', verifyUsuario, UserController.add);
+router.put('/update', verifyUsuario, UserController.update);
 
 // Exportamos el enrutador
 module.exports = router;
